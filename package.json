@@ -1,0 +1,8 @@
+{
+  "name": "zawk",
+  "version": "1.0.0",
+  "author": "John Dinh",
+  "scripts": {
+    "generate-wp": "docker run --rm --interactive --tty --volume $PWD:/app --user $(id -u):$(id -g) composer create-project roots/bedrock wordpress"
+  }
+}
