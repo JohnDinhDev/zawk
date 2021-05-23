@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "author": "John Dinh",
   "scripts": {
-    "generate-wp": "docker run --rm --interactive --tty --volume $PWD:/app --user $(id -u):$(id -g) composer create-project roots/bedrock wordpress"
+    "generate-wp": "docker run --rm --interactive --tty --volume $PWD:/app --user $(id -u):$(id -g) composer create-project roots/bedrock wordpress ; node ./utils/wordpress.js",
+    "generate-wp-env": "node ./utils/wordpress.js"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "get-random-values": "^1.2.2"
   }
 }

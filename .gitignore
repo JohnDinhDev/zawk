@@ -1,0 +1,10 @@
+# Logs
+*.log
+
+# Dotenv
+.env
+.env.*
+!.env.example
+
+mysql
+node_modules

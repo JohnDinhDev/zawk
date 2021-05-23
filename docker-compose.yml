@@ -7,11 +7,13 @@ services:
     command: install
   nginx:
     build: ./nginx
+    env_file:
+      - ./.env
     restart: always
     volumes:
       - ./wordpress:/var/www/wordpress
     ports:
-      - 80:80
+      - "${PORT}:80"
   php:
     build: ./php
     restart: always
@@ -21,10 +23,12 @@ services:
   db:
     image: mariadb
     restart: always
-    ports:
-      - 3306:3306
+    env_file:
+      - ./.env
+    volumes:
+      - ./mysql/data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: 'SendPie44544541!'
-      MYSQL_DATABASE: 'johndinhdev'
-      MYSQL_USER: 'john'
-      MYSQL_PASSWORD: 'cody4454'
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
