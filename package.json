@@ -5,7 +5,7 @@
   "scripts": {
     "generate:wp": "docker run --rm --interactive --tty --volume $PWD:/app --user $(id -u):$(id -g) composer create-project roots/bedrock wordpress ; node ./utils/wordpress.js",
     "generate:wp-env": "node ./utils/wordpress.js",
-    "generate": "node ./utils/generateEnv.js ; node run generate-wp",
+    "generate": "node ./utils/generateEnv.js ; npm run generate-wp",
     "generate:env": "node ./utils/generateEnv.js"
   },
   "dependencies": {
