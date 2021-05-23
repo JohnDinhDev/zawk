@@ -42,4 +42,7 @@ const generateEnv = () => {
   });
 };
 
+module.exports = generateEnv;
+
+// maybe remove this?
 generateEnv();
