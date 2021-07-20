@@ -6,21 +6,32 @@ services:
       - ./wordpress/:/app
     command: install
   ftp:
-    image: stilliard/pure-ftpd
-    ports:
-      - "21:21"
-      - "30000-30009:30000-30009"
-    volumes:
-      - "./wordpress/web:/home/ftpusers"
-      - "./ftp/passwd:/etc/pure-ftpd/passwd"
+    image: stilliard/pure-ftpd:hardened
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
     environment:
       PUBLICHOST: "localhost"
-      FTP_USER_NAME: "ftpusers"
-      FTP_USER_PASS: "cody4454"
-      FTP_USER_HOME: "/home/ftpusers"
+      FTP_USER_NAME: "wordpress"
+      FTP_USER_PASS: "password"
+      FTP_USER_HOME: "/home/wordpress"
       FTP_USER_UID: 33
       FTP_USER_GID: 33
-    restart: always
+    volumes:
+      - "./wordpress/web:/home/wordpress"
+      - "./ftp/passwd:/etc/pure-ftpd/passwd"
+    ports:
+      - target: 21
+        published: 21
+        protocol: tcp
+        mode: host
+
+    # Bind each passive ports to the host
+      - target: 30000
+        published: 30000
+        protocol: tcp
+        mode: host
   nginx:
     build: ./nginx
     env_file:
