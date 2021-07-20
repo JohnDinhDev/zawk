@@ -6,7 +6,7 @@ services:
       - ./wordpress/:/app
     command: install
   ftp:
-    image: stilliard/pure-ftpd:hardened
+    build: ./ftp
     deploy:
       replicas: 1
       restart_policy:
