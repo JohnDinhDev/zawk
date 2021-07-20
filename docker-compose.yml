@@ -5,6 +5,23 @@ services:
     volumes:
       - ./wordpress/:/app
     command: install
+  ftp:
+    image: stilliard/pure-ftpd
+    #build: ./ftp
+    ports:
+      - "21:21"
+      - "30000-30009:30000-30009"
+    volumes:
+      - "./wordpress/web:/home/ftpusers"
+      - "./ftp/passwd:/etc/pure-ftpd/passwd"
+    environment:
+      PUBLICHOST: "localhost"
+      FTP_USER_NAME: "ftpusers"
+      FTP_USER_PASS: "cody4454"
+      FTP_USER_HOME: "/home/ftpusers"
+      FTP_USER_UID: 33
+      FTP_USER_GID: 33
+    restart: always
   nginx:
     build: ./nginx
     env_file:
@@ -17,6 +34,8 @@ services:
   php:
     build: ./php
     restart: always
+    ports:
+      - "9000:9000"
     volumes:
       - ./wordpress:/var/www/wordpress
       - ./wordpress/vendor:/var/www/vendor
