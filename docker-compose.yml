@@ -7,7 +7,6 @@ services:
     command: install
   ftp:
     image: stilliard/pure-ftpd
-    #build: ./ftp
     ports:
       - "21:21"
       - "30000-30009:30000-30009"
